@@ -17,6 +17,7 @@ import UIKit
 // TODO: GridView .index(of:) returns non-optional in NSGridView
 // TODO: public or open classes
 // TODO: Swift 3 naming convention
+// TODO: update defaults to NSGridView defaults (rowSpacing = 6)
 
 public class GridView: UIView {
 
