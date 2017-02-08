@@ -18,6 +18,8 @@ import UIKit
 // TODO: public or open classes
 // TODO: Swift 3 naming convention
 // TODO: update defaults to NSGridView defaults (rowSpacing = 6)
+// TODO: fix runtime ambiguous position and size
+// TODO: GridRow & GridColumnd .gridView should be public
 
 public class GridView: UIView {
 
