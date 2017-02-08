@@ -49,6 +49,10 @@ public class GridView: UIView {
     return insertRow(at: rows.count, with: views)
   }
 
+  public func cell(atColumnIndex columnIndex: Int, rowIndex: Int) -> GridCell {
+    return grid[rowIndex][columnIndex]
+  }
+
   public func cell(for view: UIView) -> GridCell? {
     for row in grid {
       for cell in row {
