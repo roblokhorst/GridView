@@ -65,10 +65,12 @@ public class GridView: UIView {
     return columns[index]
   }
 
+  // Note: NSGridView returns a non-optional Int
   public func index(of column: GridColumn) -> Int? {
     return columns.index { $0 === column }
   }
 
+  // Note: NSGridView returns a non-optional Int
   public func index(of row: GridRow) -> Int? {
     return rows.index { $0 === row }
   }
