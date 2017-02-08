@@ -1,0 +1,16 @@
+PODS:
+  - GridView (0.1.0)
+
+DEPENDENCIES:
+  - GridView (from `../../`)
+
+EXTERNAL SOURCES:
+  GridView:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  GridView: f21f0db2f6fa1efbc4e96b6de5e1ee65d575d86b
+
+PODFILE CHECKSUM: e34b4d047e08e6cc772bd3585de7f2553e97cb1d
+
+COCOAPODS: 1.1.1
