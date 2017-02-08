@@ -26,6 +26,10 @@ extension GridView {
 
       row.innerLayoutGuide.topAnchor.constraint(equalTo: row.outerLayoutGuide.topAnchor, constant: row.topPadding).isActive = true
       row.innerLayoutGuide.bottomAnchor.constraint(equalTo: row.outerLayoutGuide.bottomAnchor, constant: -row.bottomPadding).isActive = true
+
+      if let height = row.height {
+        row.innerLayoutGuide.heightAnchor.constraint(equalToConstant: height).isActive = true
+      }
     }
     rows.first?.outerLayoutGuide.topAnchor.constraint(equalTo: gridView.topAnchor).isActive = true
     rows.last?.outerLayoutGuide.bottomAnchor.constraint(equalTo: gridView.bottomAnchor).isActive = true
@@ -48,6 +52,10 @@ extension GridView {
 
       column.innerLayoutGuide.leadingAnchor.constraint(equalTo: column.outerLayoutGuide.leadingAnchor, constant: column.leadingPadding).isActive = true
       column.innerLayoutGuide.trailingAnchor.constraint(equalTo: column.outerLayoutGuide.trailingAnchor, constant: -column.trailingPadding).isActive = true
+
+      if let width = column.width {
+        column.innerLayoutGuide.widthAnchor.constraint(equalToConstant: width).isActive = true
+      }
     }
     columns.first?.outerLayoutGuide.leadingAnchor.constraint(equalTo: gridView.leadingAnchor).isActive = true
     columns.last?.outerLayoutGuide.trailingAnchor.constraint(equalTo: gridView.trailingAnchor).isActive = true

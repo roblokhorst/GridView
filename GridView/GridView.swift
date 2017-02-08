@@ -152,6 +152,8 @@ public class GridView: UIView {
 
 public class GridRow {
   public var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+  // Note: NSGridRow uses a non-optional CGFloat.leastNormalMagnitude as default
+  public var height: CGFloat? { didSet { gridView?.updateGrid() } }
   public var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   public var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
@@ -177,6 +179,8 @@ public class GridRow {
 public class GridColumn {
   public var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   public var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+  // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
+  public var width: CGFloat? { didSet { gridView?.updateGrid() } }
   public var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
   let outerLayoutGuide = UILayoutGuide()
