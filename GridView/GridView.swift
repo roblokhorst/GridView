@@ -100,10 +100,8 @@ open class GridView: UIView {
 
     var cells: [GridCell] = []
     for (columnIndex, column) in columns.enumerated() {
-      let cell = GridCell(gridView: self)
+      let cell = GridCell(gridView: self, row: row, column: column)
       cell.contentView = views[safe: columnIndex]
-      cell.row = row
-      cell.column = column
 
       cells.append(cell)
     }
@@ -136,10 +134,8 @@ open class GridView: UIView {
     columns.insert(column, at: index)
 
     for (rowIndex, row) in rows.enumerated() {
-      let cell = GridCell(gridView: self)
+      let cell = GridCell(gridView: self, row: row, column: column)
       cell.contentView = views[safe:rowIndex]
-      cell.row = row
-      cell.column = column
 
       grid[rowIndex].insert(cell, at: index)
     }
@@ -257,22 +253,44 @@ open class GridColumn {
 // MARK: - GridCell
 
 open class GridCell {
-  open class var emptyContentView: UIView { return _emptyContentView }
-
-  open weak var column: GridColumn?
-  open var contentView: UIView?
-  open var customPlacementConstraints: [NSLayoutConstraint] = [] { didSet { gridView?.updateGrid() } }
-  open weak var row: GridRow?
-  open var xPlacement: GridCellXPlacement = .inherit { didSet { gridView?.updateGrid() } }
-  open var yPlacement: GridCellYPlacement = .inherit { didSet { gridView?.updateGrid() } }
-
-  private weak var gridView: GridView?
 
   private static var _emptyContentView = UIView()
 
-  init(gridView: GridView) {
+  private weak var gridView: GridView?
+  private weak var _row: GridRow?
+  private weak var _column: GridColumn?
+
+  // MARK: Init
+
+  init(gridView: GridView, row: GridRow, column: GridColumn) {
     self.gridView = gridView
+    self._row = row
+    self._column = column
   }
+
+  // MARK: Getters
+
+  open var contentView: UIView?
+
+  open class var emptyContentView: UIView { return _emptyContentView }
+
+  open weak var row: GridRow? {
+    return _row
+  }
+
+  open weak var column: GridColumn? {
+    return _column
+  }
+
+  // MARK: Position
+
+  open var xPlacement: GridCellXPlacement = .inherit { didSet { gridView?.updateGrid() } }
+
+  open var yPlacement: GridCellYPlacement = .inherit { didSet { gridView?.updateGrid() } }
+
+  //open var rowAlignment: NSGridRowAlignment
+
+  open var customPlacementConstraints: [NSLayoutConstraint] = [] { didSet { gridView?.updateGrid() } }
 }
 
 // MARK: - GridCellXPlacement
