@@ -19,7 +19,6 @@ import UIKit
 // TODO: Swift 3 naming convention
 // TODO: update defaults to NSGridView defaults (rowSpacing = 6)
 // TODO: fix runtime ambiguous position and size
-// TODO: GridRow & GridColumnd .gridView should be public
 // TODO: make UIView.animate possible, by not using updateGrid()
 
 public class GridView: UIView {
@@ -154,6 +153,7 @@ public class GridView: UIView {
 // MARK: - GridRow
 
 public class GridRow {
+  public weak var gridView: GridView?
   public var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   // Note: NSGridRow uses a non-optional CGFloat.leastNormalMagnitude as default
   public var height: CGFloat? { didSet { gridView?.updateGrid() } }
@@ -163,8 +163,6 @@ public class GridRow {
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
   var merged: [Range<Int>] = []
-
-  private weak var gridView: GridView?
 
   init(gridView: GridView) {
     self.gridView = gridView
@@ -180,6 +178,7 @@ public class GridRow {
 // MARK: - GridColumn
 
 public class GridColumn {
+  public weak var gridView: GridView?
   public var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   public var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
@@ -189,8 +188,6 @@ public class GridColumn {
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
   var merged: [Range<Int>] = []
-
-  private weak var gridView: GridView?
 
   init(gridView: GridView) {
     self.gridView = gridView
