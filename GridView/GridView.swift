@@ -21,18 +21,15 @@ import UIKit
 // TODO: fix runtime ambiguous position and size
 // TODO: make UIView.animate possible, by not using updateGrid()
 
-public class GridView: UIView {
-
-  public var columnSpacing: CGFloat = 0 { didSet { updateGrid() } }
-  public var numberOfColumns: Int { return columns.count }
-  public var numberOfRows: Int { return rows.count }
-  public var rowSpacing: CGFloat = 0 { didSet { updateGrid() } }
-  public var xPlacement: GridViewXPlacement = .leading { didSet { updateGrid() } }
-  public var yPlacement: GridViewYPlacement = .bottom { didSet { updateGrid() } }
+open class GridView: UIView {
 
   var columns: [GridColumn] = []
   var rows: [GridRow] = []
   var grid: [[GridCell]] = []
+
+  // MARK: Initializers
+
+  //public convenience init(numberOfColumns columnCount: Int, rows rowCount: Int) { }
 
   public convenience init(views rows: [[UIView]]) {
     self.init()
@@ -42,21 +39,39 @@ public class GridView: UIView {
     }
   }
 
-  @discardableResult
-  public func addColumn(with views: [UIView]) -> GridColumn {
-    return insertColumn(at: columns.count, with: views)
+  // MARK: Count
+
+  open var numberOfColumns: Int {
+    return columns.count
   }
 
-  @discardableResult
-  public func addRow(with views: [UIView]) -> GridRow {
-    return insertRow(at: rows.count, with: views)
+  open var numberOfRows: Int {
+    return rows.count
   }
 
-  public func cell(atColumnIndex columnIndex: Int, rowIndex: Int) -> GridCell {
+  // MARK: Get
+
+  open func row(at index: Int) -> GridRow {
+    return rows[index]
+  }
+
+  open func index(of row: GridRow) -> Int? { // Note: NSGridView returns a non-optional Int
+    return rows.index { $0 === row }
+  }
+
+  open func column(at index: Int) -> GridColumn {
+    return columns[index]
+  }
+
+  open func index(of column: GridColumn) -> Int? { // Note: NSGridView returns a non-optional Int
+    return columns.index { $0 === column }
+  }
+
+  open func cell(atColumnIndex columnIndex: Int, rowIndex: Int) -> GridCell {
     return grid[rowIndex][columnIndex]
   }
 
-  public func cell(for view: UIView) -> GridCell? {
+  open func cell(for view: UIView) -> GridCell? {
     for row in grid {
       for cell in row {
         if cell.contentView == view {
@@ -68,43 +83,14 @@ public class GridView: UIView {
     return nil
   }
 
-  public func column(at index: Int) -> GridColumn {
-    return columns[index]
+  // MARK: Add, insert, move and remove
+
+  @discardableResult
+  open func addRow(with views: [UIView]) -> GridRow {
+    return insertRow(at: rows.count, with: views)
   }
 
-  // Note: NSGridView returns a non-optional Int
-  public func index(of column: GridColumn) -> Int? {
-    return columns.index { $0 === column }
-  }
-
-  // Note: NSGridView returns a non-optional Int
-  public func index(of row: GridRow) -> Int? {
-    return rows.index { $0 === row }
-  }
-
-  public func insertColumn(at index: Int, with views: [UIView]) -> GridColumn {
-    for _ in 0..<max(0, views.count - numberOfRows) {
-      addRow(with: [])
-    }
-
-    let column = GridColumn(gridView: self)
-    columns.insert(column, at: index)
-
-    for (rowIndex, row) in rows.enumerated() {
-      let cell = GridCell(gridView: self)
-      cell.contentView = views[safe:rowIndex]
-      cell.row = row
-      cell.column = column
-
-      grid[rowIndex].insert(cell, at: index)
-    }
-
-    updateGrid() // TODO: Is this the correct place?
-
-    return column
-  }
-
-  public func insertRow(at index: Int, with views: [UIView]) -> GridRow {
+  open func insertRow(at index: Int, with views: [UIView]) -> GridRow {
     for _ in 0..<max(0, views.count - numberOfColumns) {
       addColumn(with: [])
     }
@@ -124,30 +110,72 @@ public class GridView: UIView {
 
     grid.insert(cells, at: index)
 
-    updateGrid() // TODO: Is this the correct place?
-
+    updateGrid()
+    
     return row
   }
 
-  public func row(at index: Int) -> GridRow {
-    return rows[index]
+  //open func moveRow(at fromIndex: Int, to toIndex: Int) { }
+
+  open func removeRow(at index: Int) {
+    rows.remove(at: index)
+    grid.remove(at: index)
   }
 
-  public func removeColumn(at index: Int) {
+  @discardableResult
+  open func addColumn(with views: [UIView]) -> GridColumn {
+    return insertColumn(at: columns.count, with: views)
+  }
+
+  open func insertColumn(at index: Int, with views: [UIView]) -> GridColumn {
+    for _ in 0..<max(0, views.count - numberOfRows) {
+      addRow(with: [])
+    }
+
+    let column = GridColumn(gridView: self)
+    columns.insert(column, at: index)
+
+    for (rowIndex, row) in rows.enumerated() {
+      let cell = GridCell(gridView: self)
+      cell.contentView = views[safe:rowIndex]
+      cell.row = row
+      cell.column = column
+
+      grid[rowIndex].insert(cell, at: index)
+    }
+
+    updateGrid()
+
+    return column
+  }
+
+  //open func moveColumn(at fromIndex: Int, to toIndex: Int) { }
+
+  open func removeColumn(at index: Int) {
     columns.remove(at: index)
     for (rowIndex, _) in grid.enumerated() {
       grid[rowIndex].remove(at: index)
     }
-
-    // TODO: updateGrid() ?
   }
 
-  public func removeRow(at index: Int) {
-    rows.remove(at: index)
-    grid.remove(at: index)
+  // MARK: Position
 
-    // TODO: updateGrid() ?
-  }
+  open var xPlacement: GridViewXPlacement = .leading { didSet { updateGrid() } }
+
+  open var yPlacement: GridViewYPlacement = .bottom { didSet { updateGrid() } }
+
+  //open var rowAlignment: GridRowAlignment
+
+  // MARK: Space
+
+  open var columnSpacing: CGFloat = 0 { didSet { updateGrid() } }
+
+  open var rowSpacing: CGFloat = 0 { didSet { updateGrid() } }
+
+  // MARK: Merge
+
+  //open func mergeCells(inHorizontalRange hRange: NSRange, verticalRange vRange: NSRange)
+
 }
 
 // MARK: - GridRow
