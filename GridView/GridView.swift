@@ -9,14 +9,8 @@
 import UIKit
 
 // TODO: implement all properties and methods
-// TODO: order properties and methods in a logical way
 // TODO: add all contentViews as subviews before activating customPlacementConstraints
-// TODO: updateGrid shouldn't be public
 // TODO: fix mergeCells (don't save ranges, but actually merge cells somehow)
-// TODO: GridCell .row & .column  get only
-// TODO: GridView .index(of:) returns non-optional in NSGridView
-// TODO: public or open classes
-// TODO: Swift 3 naming convention
 // TODO: update defaults to NSGridView defaults (rowSpacing = 6)
 // TODO: fix runtime ambiguous position and size
 // TODO: make UIView.animate possible, by not using updateGrid()
