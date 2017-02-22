@@ -180,13 +180,13 @@ open class GridView: UIView {
 
 // MARK: - GridRow
 
-public class GridRow {
-  public weak var gridView: GridView?
-  public var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+open class GridRow {
+  open weak var gridView: GridView?
+  open var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   // Note: NSGridRow uses a non-optional CGFloat.leastNormalMagnitude as default
-  public var height: CGFloat? { didSet { gridView?.updateGrid() } }
-  public var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-  public var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var height: CGFloat? { didSet { gridView?.updateGrid() } }
+  open var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+  open var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
@@ -196,7 +196,7 @@ public class GridRow {
     self.gridView = gridView
   }
 
-  public func mergeCells(in range: Range<Int>) {
+  open func mergeCells(in range: Range<Int>) {
     merged.append(range)
 
     // TODO: gridView?.updateGrid() ?
@@ -205,13 +205,13 @@ public class GridRow {
 
 // MARK: - GridColumn
 
-public class GridColumn {
-  public weak var gridView: GridView?
-  public var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-  public var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+open class GridColumn {
+  open weak var gridView: GridView?
+  open var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+  open var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
   // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
-  public var width: CGFloat? { didSet { gridView?.updateGrid() } }
-  public var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var width: CGFloat? { didSet { gridView?.updateGrid() } }
+  open var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
@@ -221,7 +221,7 @@ public class GridColumn {
     self.gridView = gridView
   }
 
-  public func mergeCells(in range: Range<Int>) {
+  open func mergeCells(in range: Range<Int>) {
     merged.append(range)
 
     // TODO: gridView?.updateGrid() ?
@@ -230,15 +230,15 @@ public class GridColumn {
 
 // MARK: - GridCell
 
-public class GridCell {
-  public class var emptyContentView: UIView { return _emptyContentView }
+open class GridCell {
+  open class var emptyContentView: UIView { return _emptyContentView }
 
-  public weak var column: GridColumn?
-  public var contentView: UIView?
-  public var customPlacementConstraints: [NSLayoutConstraint] = [] { didSet { gridView?.updateGrid() } }
-  public weak var row: GridRow?
-  public var xPlacement: GridCellXPlacement = .inherit { didSet { gridView?.updateGrid() } }
-  public var yPlacement: GridCellYPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open weak var column: GridColumn?
+  open var contentView: UIView?
+  open var customPlacementConstraints: [NSLayoutConstraint] = [] { didSet { gridView?.updateGrid() } }
+  open weak var row: GridRow?
+  open var xPlacement: GridCellXPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var yPlacement: GridCellYPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
   private weak var gridView: GridView?
 
