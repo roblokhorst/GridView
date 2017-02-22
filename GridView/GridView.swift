@@ -185,7 +185,7 @@ open class GridRow {
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
   var merged: [Range<Int>] = []
-  
+
   init(gridView: GridView) {
     self.gridView = gridView
   }
@@ -220,12 +220,6 @@ open class GridRow {
 // MARK: - GridColumn
 
 open class GridColumn {
-  open weak var gridView: GridView?
-  open var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-  open var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-  // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
-  open var width: CGFloat? { didSet { gridView?.updateGrid() } }
-  open var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
@@ -234,6 +228,24 @@ open class GridColumn {
   init(gridView: GridView) {
     self.gridView = gridView
   }
+
+  open weak var gridView: GridView?
+
+  open var numberOfCells: Int {
+    return gridView?.numberOfRows ?? 0
+  }
+
+  //open func cell(at index: Int) -> GridCell
+
+  open var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
+
+  open var width: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
+
+  open var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  open var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  //open var isHidden: Bool // Hidden rows/columns will collapse to 0 size and hide all their contentViews.
 
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)
