@@ -20,6 +20,7 @@ import UIKit
 // TODO: update defaults to NSGridView defaults (rowSpacing = 6)
 // TODO: fix runtime ambiguous position and size
 // TODO: GridRow & GridColumnd .gridView should be public
+// TODO: make UIView.animate possible, by not using updateGrid()
 
 public class GridView: UIView {
 
