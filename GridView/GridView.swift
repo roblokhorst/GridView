@@ -181,20 +181,34 @@ open class GridView: UIView {
 // MARK: - GridRow
 
 open class GridRow {
-  open weak var gridView: GridView?
-  open var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-  // Note: NSGridRow uses a non-optional CGFloat.leastNormalMagnitude as default
-  open var height: CGFloat? { didSet { gridView?.updateGrid() } }
-  open var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-  open var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
   let outerLayoutGuide = UILayoutGuide()
   let innerLayoutGuide = UILayoutGuide()
   var merged: [Range<Int>] = []
-
+  
   init(gridView: GridView) {
     self.gridView = gridView
   }
+
+  open weak var gridView: GridView?
+
+  open var numberOfCells: Int {
+    return gridView?.numberOfColumns ?? 0
+  }
+
+  //open func cell(at index: Int) -> GridCell
+
+  open var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
+
+  //open var rowAlignment: GridRowAlignment
+
+  open var height: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridRow uses a non-optional CGFloat.leastNormalMagnitude as default
+
+  open var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  open var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  //open var isHidden: Bool // Hidden rows/columns will collapse to 0 size and hide all their contentViews.
 
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)
