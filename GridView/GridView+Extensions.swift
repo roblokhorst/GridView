@@ -147,14 +147,14 @@ extension GridView {
     case .trailing: xPlacement = .trailing
     case .fill: xPlacement = .fill
     case .none: xPlacement = .none
-    case .inherit:
+    case .inherited:
       switch column.xPlacement {
       case .leading: xPlacement = .leading
       case .center: xPlacement = .center
       case .trailing: xPlacement = .trailing
       case .fill: xPlacement = .fill
       case .none: xPlacement = .none
-      case .inherit: xPlacement = gridView.xPlacement
+      case .inherited: xPlacement = gridView.xPlacement
       }
     }
 
@@ -188,14 +188,14 @@ extension GridView {
     case .bottom: yPlacement = .bottom
     case .fill: yPlacement = .fill
     case .none: yPlacement = .none
-    case .inherit:
+    case .inherited:
       switch row.yPlacement {
       case .top: yPlacement = .top
       case .center: yPlacement = .center
       case .bottom: yPlacement = .bottom
       case .fill: yPlacement = .fill
       case .none: yPlacement = .none
-      case .inherit: yPlacement = gridView.yPlacement
+      case .inherited: yPlacement = gridView.yPlacement
       }
     }
 

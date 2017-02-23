@@ -238,7 +238,7 @@ open class GridRow {
     return gridView.cell(atColumnIndex: index, rowIndex: rowIndex)
   }
 
-  open var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var yPlacement: GridRowYPlacement = .inherited { didSet { gridView?.updateGrid() } }
 
   //open var rowAlignment: GridRowAlignment
 
@@ -284,7 +284,7 @@ open class GridColumn {
     return gridView.cell(atColumnIndex: columnIndex, rowIndex: index)
   }
 
-  open var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var xPlacement: GridColumnXPlacement = .inherited { didSet { gridView?.updateGrid() } }
 
   open var width: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
 
@@ -335,9 +335,9 @@ open class GridCell {
 
   // MARK: Position
 
-  open var xPlacement: GridCellXPlacement = .inherit { didSet { _gridView?.updateGrid() } }
+  open var xPlacement: GridCellXPlacement = .inherited { didSet { _gridView?.updateGrid() } }
 
-  open var yPlacement: GridCellYPlacement = .inherit { didSet { _gridView?.updateGrid() } }
+  open var yPlacement: GridCellYPlacement = .inherited { didSet { _gridView?.updateGrid() } }
 
   //open var rowAlignment: NSGridRowAlignment
 
@@ -354,18 +354,18 @@ public enum GridXPlacement {
   case none
 }
 
-public enum GridXPlacementWithInherit {
+public enum GridXPlacementWithInherited {
   case leading
   case center
   case trailing
   case fill
   case none
-  case inherit
+  case inherited
 }
 
 public typealias GridViewXPlacement = GridXPlacement
-public typealias GridColumnXPlacement = GridXPlacementWithInherit
-public typealias GridCellXPlacement = GridXPlacementWithInherit
+public typealias GridColumnXPlacement = GridXPlacementWithInherited
+public typealias GridCellXPlacement = GridXPlacementWithInherited
 
 // MARK: - GridCellYPlacement
 
@@ -377,15 +377,15 @@ public enum GridYPlacement {
   case none
 }
 
-public enum GridYPlacementWithInherit {
+public enum GridYPlacementWithInherited {
   case top
   case center
   case bottom
   case fill
   case none
-  case inherit
+  case inherited
 }
 
 public typealias GridViewYPlacement = GridYPlacement
-public typealias GridRowYPlacement = GridYPlacementWithInherit
-public typealias GridCellYPlacement = GridYPlacementWithInherit
+public typealias GridRowYPlacement = GridYPlacementWithInherited
+public typealias GridCellYPlacement = GridYPlacementWithInherited
