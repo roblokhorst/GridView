@@ -23,7 +23,12 @@ open class GridView: UIView {
 
   // MARK: Initializers
 
-  //public convenience init(numberOfColumns columnCount: Int, rows rowCount: Int) { }
+  public convenience init(numberOfColumns columnCount: Int, rows rowCount: Int) {
+    self.init()
+
+    for _ in 0..<columnCount { addColumn(with: []) }
+    for _ in 0..<rowCount { addRow(with: []) }
+  }
 
   public convenience init(views rows: [[UIView]]) {
     self.init()
