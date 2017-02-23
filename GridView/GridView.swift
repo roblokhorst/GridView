@@ -124,6 +124,13 @@ open class GridView: UIView {
   }
 
   open func removeRow(at index: Int) {
+    rows[index].gridView = nil
+    for cell in grid[index] {
+      cell._gridView = nil
+      cell._row = nil
+      cell._column = nil
+    }
+
     rows.remove(at: index)
     grid.remove(at: index)
 
@@ -168,6 +175,14 @@ open class GridView: UIView {
   }
 
   open func removeColumn(at index: Int) {
+    columns[index].gridView = nil
+    for (rowIndex, _) in grid.enumerated() {
+      let cell = grid[rowIndex][index]
+      cell._gridView = nil
+      cell._row = nil
+      cell._column = nil
+    }
+
     columns.remove(at: index)
     for (rowIndex, _) in grid.enumerated() {
       grid[rowIndex].remove(at: index)
@@ -231,7 +246,7 @@ open class GridRow {
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)
 
-    // TODO: gridView?.updateGrid() ?
+    gridView?.updateGrid()
   }
 }
 
@@ -268,7 +283,7 @@ open class GridColumn {
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)
 
-    // TODO: gridView?.updateGrid() ?
+    gridView?.updateGrid()
   }
 }
 
@@ -278,14 +293,14 @@ open class GridCell {
 
   private static var _emptyContentView = UIView()
 
-  private weak var gridView: GridView?
-  private weak var _row: GridRow?
-  private weak var _column: GridColumn?
+  fileprivate weak var _gridView: GridView?
+  fileprivate weak var _row: GridRow?
+  fileprivate weak var _column: GridColumn?
 
   // MARK: Init
 
   init(gridView: GridView, row: GridRow, column: GridColumn) {
-    self.gridView = gridView
+    self._gridView = gridView
     self._row = row
     self._column = column
   }
@@ -306,13 +321,13 @@ open class GridCell {
 
   // MARK: Position
 
-  open var xPlacement: GridCellXPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var xPlacement: GridCellXPlacement = .inherit { didSet { _gridView?.updateGrid() } }
 
-  open var yPlacement: GridCellYPlacement = .inherit { didSet { gridView?.updateGrid() } }
+  open var yPlacement: GridCellYPlacement = .inherit { didSet { _gridView?.updateGrid() } }
 
   //open var rowAlignment: NSGridRowAlignment
 
-  open var customPlacementConstraints: [NSLayoutConstraint] = [] { didSet { gridView?.updateGrid() } }
+  open var customPlacementConstraints: [NSLayoutConstraint] = [] { didSet { _gridView?.updateGrid() } }
 }
 
 // MARK: - GridCellXPlacement
