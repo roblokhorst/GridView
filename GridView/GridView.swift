@@ -112,11 +112,21 @@ open class GridView: UIView {
     return row
   }
 
-  //open func moveRow(at fromIndex: Int, to toIndex: Int) { }
+  open func moveRow(at fromIndex: Int, to toIndex: Int) {
+    let row = rows.remove(at: fromIndex)
+    rows.insert(row, at: toIndex)
+
+    let cells = grid.remove(at: fromIndex)
+    grid.insert(cells, at: toIndex)
+
+    updateGrid()
+  }
 
   open func removeRow(at index: Int) {
     rows.remove(at: index)
     grid.remove(at: index)
+
+    updateGrid()
   }
 
   @discardableResult
@@ -144,13 +154,25 @@ open class GridView: UIView {
     return column
   }
 
-  //open func moveColumn(at fromIndex: Int, to toIndex: Int) { }
+  open func moveColumn(at fromIndex: Int, to toIndex: Int) {
+    let column = columns.remove(at: fromIndex)
+    columns.insert(column, at: toIndex)
+
+    for (rowIndex, _) in grid.enumerated() {
+      let cell = grid[rowIndex].remove(at: fromIndex)
+      grid[rowIndex].insert(cell, at: toIndex)
+    }
+
+    updateGrid()
+  }
 
   open func removeColumn(at index: Int) {
     columns.remove(at: index)
     for (rowIndex, _) in grid.enumerated() {
       grid[rowIndex].remove(at: index)
     }
+
+    updateGrid()
   }
 
   // MARK: Position
