@@ -229,11 +229,14 @@ open class GridRow {
     return gridView?.numberOfColumns ?? 0
   }
 
-//  open func cell(at index: Int) -> GridCell {
-//    guard let gridView = gridView else {
-//      assertionFailure("This row has been deleted, and cannot be used.")
-//    }
-//  }
+  open func cell(at index: Int) -> GridCell? { // Note: NSGridRow returns a non-optional GridCell
+    guard let gridView = gridView, let rowIndex = gridView.index(of: self) else {
+      print("Assertion failure in GridRow.cell(at:). This row has been deleted, and cannot be used.")
+      return nil
+    }
+
+    return gridView.cell(atColumnIndex: index, rowIndex: rowIndex)
+  }
 
   open var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
@@ -272,11 +275,14 @@ open class GridColumn {
     return gridView?.numberOfRows ?? 0
   }
 
-//  open func cell(at index: Int) -> GridCell {
-//    guard let gridView = gridView else {
-//      assertionFailure("This column has been deleted, and cannot be used.")
-//    }
-//  }
+  open func cell(at index: Int) -> GridCell? { // Note: NSGridColumn returns a non-optional GridCell
+    guard let gridView = gridView, let columnIndex = gridView.index(of: self) else {
+      print("Assertion failure in GridColumn.cell(at:). This column has been deleted, and cannot be used.")
+      return nil
+    }
+
+    return gridView.cell(atColumnIndex: columnIndex, rowIndex: index)
+  }
 
   open var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
