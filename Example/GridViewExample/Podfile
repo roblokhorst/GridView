@@ -3,6 +3,6 @@ platform :ios, '9.0'
 target 'GridViewExample' do
   use_frameworks!
 
-  pod 'GridView', :path => ‘../../‘
+  pod 'GridView', :path => '../../'
 
 end
