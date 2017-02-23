@@ -245,7 +245,7 @@ open class GridRow {
 
   open var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
 
-  //open var isHidden: Bool // Hidden rows/columns will collapse to 0 size and hide all their contentViews.
+  open var isHidden: Bool = false { didSet { gridView?.updateGrid() } }
 
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)
@@ -286,7 +286,7 @@ open class GridColumn {
 
   open var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
 
-  //open var isHidden: Bool // Hidden rows/columns will collapse to 0 size and hide all their contentViews.
+  open var isHidden: Bool = false { didSet { gridView?.updateGrid() } }
 
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)

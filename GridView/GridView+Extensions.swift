@@ -10,6 +10,14 @@ import Foundation
 
 extension GridView {
 
+  var visibleRows: [GridRow] {
+    return rows.filter { $0.isHidden == false }
+  }
+
+  var visibleColumns: [GridColumn] {
+    return columns.filter { $0.isHidden == false }
+  }
+
   func updateGrid() {
 
     layoutGuides.forEach { removeLayoutGuide($0) }
@@ -20,7 +28,7 @@ extension GridView {
     gridView.translatesAutoresizingMaskIntoConstraints = false
 
     // Row guides
-    rows.forEach { row in
+    visibleRows.forEach { row in
       gridView.addLayoutGuide(row.outerLayoutGuide)
       gridView.addLayoutGuide(row.innerLayoutGuide)
 
@@ -31,22 +39,22 @@ extension GridView {
         row.innerLayoutGuide.heightAnchor.constraint(equalToConstant: height).isActive = true
       }
     }
-    rows.first?.outerLayoutGuide.topAnchor.constraint(equalTo: gridView.topAnchor).isActive = true
-    rows.last?.outerLayoutGuide.bottomAnchor.constraint(equalTo: gridView.bottomAnchor).isActive = true
-    if rows.count > 1 {
-      let verticalSpaces = Array(0..<rows.count - 1).map { _ in UILayoutGuide() }
+    visibleRows.first?.outerLayoutGuide.topAnchor.constraint(equalTo: gridView.topAnchor).isActive = true
+    visibleRows.last?.outerLayoutGuide.bottomAnchor.constraint(equalTo: gridView.bottomAnchor).isActive = true
+    if visibleRows.count > 1 {
+      let verticalSpaces = Array(0..<visibleRows.count - 1).map { _ in UILayoutGuide() }
       for (index, space) in verticalSpaces.enumerated() {
         gridView.addLayoutGuide(space)
 
         space.heightAnchor.constraint(equalToConstant: rowSpacing).isActive = true
 
-        space.topAnchor.constraint(equalTo: rows[index].outerLayoutGuide.bottomAnchor).isActive = true
-        space.bottomAnchor.constraint(equalTo: rows[index + 1].outerLayoutGuide.topAnchor).isActive = true
+        space.topAnchor.constraint(equalTo: visibleRows[index].outerLayoutGuide.bottomAnchor).isActive = true
+        space.bottomAnchor.constraint(equalTo: visibleRows[index + 1].outerLayoutGuide.topAnchor).isActive = true
       }
     }
 
     // Column guides
-    columns.forEach { column in
+    visibleColumns.forEach { column in
       gridView.addLayoutGuide(column.outerLayoutGuide)
       gridView.addLayoutGuide(column.innerLayoutGuide)
 
@@ -57,24 +65,26 @@ extension GridView {
         column.innerLayoutGuide.widthAnchor.constraint(equalToConstant: width).isActive = true
       }
     }
-    columns.first?.outerLayoutGuide.leadingAnchor.constraint(equalTo: gridView.leadingAnchor).isActive = true
-    columns.last?.outerLayoutGuide.trailingAnchor.constraint(equalTo: gridView.trailingAnchor).isActive = true
-    if columns.count > 1 {
-      let horizontalSpaces = Array(0..<columns.count - 1).map { _ in UILayoutGuide() }
+    visibleColumns.first?.outerLayoutGuide.leadingAnchor.constraint(equalTo: gridView.leadingAnchor).isActive = true
+    visibleColumns.last?.outerLayoutGuide.trailingAnchor.constraint(equalTo: gridView.trailingAnchor).isActive = true
+    if visibleColumns.count > 1 {
+      let horizontalSpaces = Array(0..<visibleColumns.count - 1).map { _ in UILayoutGuide() }
       for (index, space) in horizontalSpaces.enumerated() {
         gridView.addLayoutGuide(space)
 
         space.widthAnchor.constraint(equalToConstant: columnSpacing).isActive = true
 
-        space.leadingAnchor.constraint(equalTo: columns[index].outerLayoutGuide.trailingAnchor).isActive = true
-        space.trailingAnchor.constraint(equalTo: columns[index + 1].outerLayoutGuide.leadingAnchor).isActive = true
+        space.leadingAnchor.constraint(equalTo: visibleColumns[index].outerLayoutGuide.trailingAnchor).isActive = true
+        space.trailingAnchor.constraint(equalTo: visibleColumns[index + 1].outerLayoutGuide.leadingAnchor).isActive = true
       }
     }
 
     for (rowIndex, row) in rows.enumerated() {
       for (columnIndex, column) in columns.enumerated() {
-        let container = RowColumnContainer(rowIndex: rowIndex, row: row, columnIndex: columnIndex, column: column)
-        updateGrid(with: container)
+        if !row.isHidden && !column.isHidden {
+          let container = RowColumnContainer(rowIndex: rowIndex, row: row, columnIndex: columnIndex, column: column)
+          updateGrid(with: container)
+        }
       }
     }
   }
@@ -105,7 +115,7 @@ extension GridView {
       gridView.addLayoutGuide(mergedGuide)
 
       let topGuide = horizontalGuide
-      let bottomGuide = rows[range.upperBound - 1].innerLayoutGuide
+      let bottomGuide = visibleRows[range.upperBound - 1].innerLayoutGuide
 
       mergedGuide.topAnchor.constraint(equalTo: topGuide.topAnchor).isActive = true
       mergedGuide.bottomAnchor.constraint(equalTo: bottomGuide.bottomAnchor).isActive = true
@@ -121,7 +131,7 @@ extension GridView {
       gridView.addLayoutGuide(guide)
 
       let leadingGuide = verticalGuide
-      let trailingGuide = columns[range.upperBound - 1].innerLayoutGuide
+      let trailingGuide = visibleColumns[range.upperBound - 1].innerLayoutGuide
 
       guide.leadingAnchor.constraint(equalTo: leadingGuide.leadingAnchor).isActive = true
       guide.trailingAnchor.constraint(equalTo: trailingGuide.trailingAnchor).isActive = true
