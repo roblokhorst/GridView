@@ -14,6 +14,7 @@ import UIKit
 // TODO: update defaults to NSGridView defaults (rowSpacing = 6)
 // TODO: fix runtime ambiguous position and size
 // TODO: make UIView.animate possible, by not using updateGrid()
+// TODO: remove constraint when nilling out .width or .height
 
 open class GridView: UIView {
 
