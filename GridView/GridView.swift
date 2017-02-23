@@ -229,7 +229,11 @@ open class GridRow {
     return gridView?.numberOfColumns ?? 0
   }
 
-  //open func cell(at index: Int) -> GridCell
+//  open func cell(at index: Int) -> GridCell {
+//    guard let gridView = gridView else {
+//      assertionFailure("This row has been deleted, and cannot be used.")
+//    }
+//  }
 
   open var yPlacement: GridRowYPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
@@ -268,7 +272,11 @@ open class GridColumn {
     return gridView?.numberOfRows ?? 0
   }
 
-  //open func cell(at index: Int) -> GridCell
+//  open func cell(at index: Int) -> GridCell {
+//    guard let gridView = gridView else {
+//      assertionFailure("This column has been deleted, and cannot be used.")
+//    }
+//  }
 
   open var xPlacement: GridColumnXPlacement = .inherit { didSet { gridView?.updateGrid() } }
 
