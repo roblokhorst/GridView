@@ -8,14 +8,6 @@
 
 import UIKit
 
-// TODO: implement all properties and methods
-// TODO: add all contentViews as subviews before activating customPlacementConstraints
-// TODO: fix mergeCells (don't save ranges, but actually merge cells somehow)
-// TODO: update defaults to NSGridView defaults
-// TODO: fix runtime ambiguous position and size
-// TODO: make UIView.animate possible, by not using updateGrid()
-// TODO: remove constraint when nilling out .width or .height
-
 open class GridView: UIView {
 
   var columns: [GridColumn] = []
