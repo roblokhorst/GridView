@@ -1,0 +1,6 @@
+framework module GridView_iOS {
+  umbrella header "GridView.iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

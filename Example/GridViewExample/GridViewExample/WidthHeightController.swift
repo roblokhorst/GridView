@@ -6,7 +6,7 @@
 //  Copyright © 2017 Rob Lokhorst. All rights reserved.
 //
 
-import GridView
+import GridView_iOS
 import UIKit
 
 class WidthHeightController: UIViewController {

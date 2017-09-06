@@ -126,6 +126,7 @@
 				TargetAttributes = {
 					0BD216E71E4B57D7004B5322 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = G363CYKDXN;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -189,7 +190,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		EC64FB5C6C7AF1A75EF6D0CB /* [CP] Embed Pods Frameworks */ = {
@@ -338,6 +339,7 @@
 			baseConfigurationReference = 7EB2F6D96B85BCEF2A548E65 /* Pods-GridViewExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G363CYKDXN;
 				INFOPLIST_FILE = GridViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roblokhorst.GridViewExample;
@@ -351,6 +353,7 @@
 			baseConfigurationReference = CD1C3CA8D7F59FE3AC8A7D0B /* Pods-GridViewExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G363CYKDXN;
 				INFOPLIST_FILE = GridViewExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roblokhorst.GridViewExample;
