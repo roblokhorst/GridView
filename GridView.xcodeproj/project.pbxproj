@@ -14,6 +14,9 @@
 		0B6F97F01E39DAA8004AF25B /* SequenceType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F97EC1E39DAA8004AF25B /* SequenceType+Extensions.swift */; };
 		0B6F97F11E39DAA8004AF25B /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F97ED1E39DAA8004AF25B /* GridView.swift */; };
 		0B6F97F21E39DAA8004AF25B /* GridView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F97EE1E39DAA8004AF25B /* GridView+Extensions.swift */; };
+		0BF013F21F60429300CDEBDA /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF013F11F60429300CDEBDA /* GridCell.swift */; };
+		0BF013F41F6042AE00CDEBDA /* GridColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF013F31F6042AE00CDEBDA /* GridColumn.swift */; };
+		0BF013F61F6042CB00CDEBDA /* GridRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF013F51F6042CB00CDEBDA /* GridRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,9 @@
 		0B6F97EC1E39DAA8004AF25B /* SequenceType+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SequenceType+Extensions.swift"; sourceTree = "<group>"; };
 		0B6F97ED1E39DAA8004AF25B /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		0B6F97EE1E39DAA8004AF25B /* GridView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GridView+Extensions.swift"; sourceTree = "<group>"; };
+		0BF013F11F60429300CDEBDA /* GridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
+		0BF013F31F6042AE00CDEBDA /* GridColumn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridColumn.swift; sourceTree = "<group>"; };
+		0BF013F51F6042CB00CDEBDA /* GridRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,9 @@
 			children = (
 				0B6F97D31E39DA84004AF25B /* GridView.h */,
 				0B6F97D41E39DA84004AF25B /* Info.plist */,
+				0BF013F11F60429300CDEBDA /* GridCell.swift */,
+				0BF013F31F6042AE00CDEBDA /* GridColumn.swift */,
+				0BF013F51F6042CB00CDEBDA /* GridRow.swift */,
 				0B6F97ED1E39DAA8004AF25B /* GridView.swift */,
 				0B6F97EE1E39DAA8004AF25B /* GridView+Extensions.swift */,
 				0B6F97EA1E39DAA8004AF25B /* Extensions */,
@@ -218,9 +227,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B6F97F21E39DAA8004AF25B /* GridView+Extensions.swift in Sources */,
+				0BF013F41F6042AE00CDEBDA /* GridColumn.swift in Sources */,
 				0B6F97F01E39DAA8004AF25B /* SequenceType+Extensions.swift in Sources */,
+				0BF013F61F6042CB00CDEBDA /* GridRow.swift in Sources */,
 				0B6F97F11E39DAA8004AF25B /* GridView.swift in Sources */,
 				0B6F97EF1E39DAA8004AF25B /* Array+Extensions.swift in Sources */,
+				0BF013F21F60429300CDEBDA /* GridCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +436,7 @@
 				0B6F97E61E39DA84004AF25B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0B6F97E71E39DA84004AF25B /* Build configuration list for PBXNativeTarget "GridViewTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +445,7 @@
 				0B6F97E91E39DA84004AF25B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
