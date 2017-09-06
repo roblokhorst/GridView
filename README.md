@@ -2,6 +2,10 @@
 
 A grid view for iOS, based on NSGridView for macOS.
 
+## Examples
+
+Go to [Example/GridViewExample](https://github.com/roblokhorst/GridView/tree/master/Example/GridViewExample) to view some examples.
+
 ## Todo
 
 - Fix runtime ambiguous position and size
