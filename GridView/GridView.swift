@@ -14,7 +14,7 @@ open class GridView: UIView {
   var rows: [GridRow] = []
   var grid: [[GridCell]] = []
 
-  // MARK: Initializers
+  // MARK: Object lifecycle
 
   public convenience init(numberOfColumns columnCount: Int, rows rowCount: Int) {
     self.init()
@@ -40,6 +40,20 @@ open class GridView: UIView {
   open var numberOfRows: Int {
     return rows.count
   }
+
+  // MARK: Position
+
+  open var xPlacement: GridViewXPlacement = .leading { didSet { updateGrid() } }
+
+  open var yPlacement: GridViewYPlacement = .top { didSet { updateGrid() } }
+
+  //open var rowAlignment: GridRow.Alignment = .none { didSet { updateGrid() } }
+
+  // MARK: Spacing
+
+  open var columnSpacing: CGFloat = 6 { didSet { updateGrid() } }
+
+  open var rowSpacing: CGFloat = 6 { didSet { updateGrid() } }
 
   // MARK: Get
 
@@ -75,13 +89,42 @@ open class GridView: UIView {
     return nil
   }
 
-  // MARK: Add, insert, move and remove
+  // MARK: Add
+
+  @discardableResult
+  open func addColumn(with views: [UIView]) -> GridColumn {
+    return insertColumn(at: columns.count, with: views)
+  }
 
   @discardableResult
   open func addRow(with views: [UIView]) -> GridRow {
     return insertRow(at: rows.count, with: views)
   }
 
+  // MARK: Insert
+
+  @discardableResult
+  open func insertColumn(at index: Int, with views: [UIView]) -> GridColumn {
+    for _ in 0..<max(0, views.count - numberOfRows) {
+      addRow(with: [])
+    }
+
+    let column = GridColumn(gridView: self)
+    columns.insert(column, at: index)
+
+    for (rowIndex, row) in rows.enumerated() {
+      let cell = GridCell(gridView: self, row: row, column: column)
+      cell.contentView = views[safe:rowIndex]
+
+      grid[rowIndex].insert(cell, at: index)
+    }
+
+    updateGrid()
+
+    return column
+  }
+
+  @discardableResult
   open func insertRow(at index: Int, with views: [UIView]) -> GridRow {
     for _ in 0..<max(0, views.count - numberOfColumns) {
       addColumn(with: [])
@@ -105,54 +148,7 @@ open class GridView: UIView {
     return row
   }
 
-  open func moveRow(at fromIndex: Int, to toIndex: Int) {
-    let row = rows.remove(at: fromIndex)
-    rows.insert(row, at: toIndex)
-
-    let cells = grid.remove(at: fromIndex)
-    grid.insert(cells, at: toIndex)
-
-    updateGrid()
-  }
-
-  open func removeRow(at index: Int) {
-    rows[index].gridView = nil
-    for cell in grid[index] {
-      cell._gridView = nil
-      cell._row = nil
-      cell._column = nil
-    }
-
-    rows.remove(at: index)
-    grid.remove(at: index)
-
-    updateGrid()
-  }
-
-  @discardableResult
-  open func addColumn(with views: [UIView]) -> GridColumn {
-    return insertColumn(at: columns.count, with: views)
-  }
-
-  open func insertColumn(at index: Int, with views: [UIView]) -> GridColumn {
-    for _ in 0..<max(0, views.count - numberOfRows) {
-      addRow(with: [])
-    }
-
-    let column = GridColumn(gridView: self)
-    columns.insert(column, at: index)
-
-    for (rowIndex, row) in rows.enumerated() {
-      let cell = GridCell(gridView: self, row: row, column: column)
-      cell.contentView = views[safe:rowIndex]
-
-      grid[rowIndex].insert(cell, at: index)
-    }
-
-    updateGrid()
-
-    return column
-  }
+  // MARK: Move
 
   open func moveColumn(at fromIndex: Int, to toIndex: Int) {
     let column = columns.remove(at: fromIndex)
@@ -165,6 +161,18 @@ open class GridView: UIView {
 
     updateGrid()
   }
+
+  open func moveRow(at fromIndex: Int, to toIndex: Int) {
+    let row = rows.remove(at: fromIndex)
+    rows.insert(row, at: toIndex)
+
+    let cells = grid.remove(at: fromIndex)
+    grid.insert(cells, at: toIndex)
+
+    updateGrid()
+  }
+
+  // MARK: Remove
 
   open func removeColumn(at index: Int) {
     columns[index].gridView = nil
@@ -183,19 +191,19 @@ open class GridView: UIView {
     updateGrid()
   }
 
-  // MARK: Position
+  open func removeRow(at index: Int) {
+    rows[index].gridView = nil
+    for cell in grid[index] {
+      cell._gridView = nil
+      cell._row = nil
+      cell._column = nil
+    }
 
-  open var xPlacement: GridViewXPlacement = .leading { didSet { updateGrid() } }
+    rows.remove(at: index)
+    grid.remove(at: index)
 
-  open var yPlacement: GridViewYPlacement = .bottom { didSet { updateGrid() } }
-
-  //open var rowAlignment: GridRowAlignment
-
-  // MARK: Space
-
-  open var columnSpacing: CGFloat = 6 { didSet { updateGrid() } }
-
-  open var rowSpacing: CGFloat = 6 { didSet { updateGrid() } }
+    updateGrid()
+  }
 
   // MARK: Merge
 
