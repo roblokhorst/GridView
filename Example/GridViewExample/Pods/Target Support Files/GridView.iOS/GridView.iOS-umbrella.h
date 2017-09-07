@@ -12,6 +12,6 @@
 
 #import "GridView.h"
 
-FOUNDATION_EXPORT double GridView_iOSVersionNumber;
-FOUNDATION_EXPORT const unsigned char GridView_iOSVersionString[];
+FOUNDATION_EXPORT double GridViewVersionNumber;
+FOUNDATION_EXPORT const unsigned char GridViewVersionString[];
 

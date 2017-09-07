@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
   s.platform            = :ios, "9.0"
   s.source              = { :git => "https://github.com/roblokhorst/GridView.git", :tag => s.version.to_s }
   s.source_files        = "GridView", "GridView/**/*.{h,m,swift}"
+  s.module_name         = "GridView"
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3' }
 
 end

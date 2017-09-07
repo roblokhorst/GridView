@@ -17,6 +17,7 @@
     "GridView",
     "GridView/**/*.{h,m,swift}"
   ],
+  "module_name": "GridView",
   "pod_target_xcconfig": {
     "SWIFT_VERSION": "3"
   }
