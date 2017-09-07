@@ -18,7 +18,17 @@ open class GridColumn {
     self.gridView = gridView
   }
 
-  open weak var gridView: GridView?
+  open internal(set) weak var gridView: GridView?
+
+  open var isHidden: Bool = false { didSet { gridView?.updateGrid() } }
+
+  open var width: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridColumn uses NSGridViewSizeForContent as default, and is non-optional
+
+  open var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  open var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  open var xPlacement: GridColumnXPlacement = .inherited { didSet { gridView?.updateGrid() } }
 
   open var numberOfCells: Int {
     return gridView?.numberOfRows ?? 0
@@ -32,16 +42,6 @@ open class GridColumn {
 
     return gridView.cell(atColumnIndex: columnIndex, rowIndex: index)
   }
-
-  open var xPlacement: GridColumnXPlacement = .inherited { didSet { gridView?.updateGrid() } }
-
-  open var width: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridColumn uses a non-optional CGFloat.leastNormalMagnitude as default
-
-  open var leadingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-
-  open var trailingPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-
-  open var isHidden: Bool = false { didSet { gridView?.updateGrid() } }
 
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)

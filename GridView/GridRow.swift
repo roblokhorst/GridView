@@ -18,7 +18,19 @@ open class GridRow {
     self.gridView = gridView
   }
 
-  open weak var gridView: GridView?
+  open public(set) weak var gridView: GridView?
+
+  open var isHidden: Bool = false { didSet { gridView?.updateGrid() } }
+
+  open var height: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridRow uses NSGridViewSizeForContent as default, and is non-optional
+
+  open var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  open var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
+
+  open var yPlacement: GridRowYPlacement = .inherited { didSet { gridView?.updateGrid() } }
+
+  //open var rowAlignment: GridRow.Alignment = .inherited { didSet { gridView?.updateGrid() } }
 
   open var numberOfCells: Int {
     return gridView?.numberOfColumns ?? 0
@@ -32,18 +44,6 @@ open class GridRow {
 
     return gridView.cell(atColumnIndex: index, rowIndex: rowIndex)
   }
-
-  open var yPlacement: GridRowYPlacement = .inherited { didSet { gridView?.updateGrid() } }
-
-  //open var rowAlignment: GridRowAlignment
-
-  open var height: CGFloat? { didSet { gridView?.updateGrid() } } // Note: NSGridRow uses a non-optional CGFloat.leastNormalMagnitude as default
-
-  open var topPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-
-  open var bottomPadding: CGFloat = 0 { didSet { gridView?.updateGrid() } }
-
-  open var isHidden: Bool = false { didSet { gridView?.updateGrid() } }
 
   open func mergeCells(in range: Range<Int>) {
     merged.append(range)
