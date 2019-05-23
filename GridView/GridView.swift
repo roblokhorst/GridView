@@ -62,7 +62,7 @@ open class GridView: UIView {
   }
 
   open func index(of row: GridRow) -> Int? { // Note: NSGridView returns a non-optional Int
-    return rows.index { $0 === row }
+    return rows.firstIndex { $0 === row }
   }
 
   open func column(at index: Int) -> GridColumn {
@@ -70,7 +70,7 @@ open class GridView: UIView {
   }
 
   open func index(of column: GridColumn) -> Int? { // Note: NSGridView returns a non-optional Int
-    return columns.index { $0 === column }
+    return columns.firstIndex { $0 === column }
   }
 
   open func cell(atColumnIndex columnIndex: Int, rowIndex: Int) -> GridCell {
