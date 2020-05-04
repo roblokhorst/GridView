@@ -1,4 +1,5 @@
 # GridView
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 A grid view for iOS, based on NSGridView for macOS.
 
